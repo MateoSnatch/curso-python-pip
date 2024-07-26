@@ -1,27 +1,25 @@
 import matplotlib.pyplot as plt 
+import numpy as np
 
 def get_country(data):
     try:
         country = input('What country are you interesed in? =>')
-        population = list(filter(lambda x: x['Country/Territory'] == country, data))
+        population = data[data['Country/Territory']==country]
     except ValueError as error:
         return(error)   
-    return population[0], country
+    return population, country
 
 def get_population(data):
-    keys = ['2020 Population', '2015 Population', '2010 Population', 
-            '2000 Population', '1990 Population', '1980 Population', '1970 Population']
-    year_labels = [2022, 2020, 2015, 2010, 2000, 1990, 1980, 1970]
-    population = [data[value] for value in keys]
-    year_labels.reverse()
-    population.reverse()
+    data = data.iloc[:,5:13]
 
-    country_population = {key:value for key,value in zip(year_labels,population)}
-    return country_population
+    keys = [1970,1980,1990,2000,2010,2015,2020,2022]
+    values = np.flip(data.values[0])
 
-def plot(data, country):
+    return keys, values
+
+def plot(keys, values, country):
   fig, ax = plt.subplots()
-  ax.bar(data.keys(), data.values())
+  ax.bar(keys, values)
   plt.savefig(f'./imgs/{country}.png')
   plt.close()
 
