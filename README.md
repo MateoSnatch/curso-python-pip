@@ -20,3 +20,16 @@ source env/bin/activate
 pip3 install -r requirements.txt
 python3 main.py 
 ```
+
+# web-server
+
+Cómo ejecutar el proyecto web-server
+
+```sh
+git clone 
+cd web-server
+sudo apt install -y python3-venv #(si no se tiene aun instalado)
+python3 -m venv env
+source env/bin/activate
+pip3 install -r requirements.txt
+uvicorn main:app --reload
